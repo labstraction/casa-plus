@@ -17,8 +17,21 @@ export class HomeComponent {
 
   casettaService: HousingService = inject(HousingService);
 
+  listaCasetteFiltrate: HousingLocation[]= [];
+
   constructor() {
     this.casettaList = this.casettaService.getAllHousingLocations();
+    this.listaCasetteFiltrate = this.casettaList;
+  }
+
+  filterResults(text: string) {
+    if (!text) {
+      this.listaCasetteFiltrate = this.casettaList;
+      return;
+    }
+    this.listaCasetteFiltrate = this.casettaList.filter((casetta) =>
+      casetta?.city.toLowerCase().includes(text.toLowerCase()),
+    );
   }
 
 
